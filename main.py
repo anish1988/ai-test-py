@@ -4,6 +4,8 @@ import pandas as pd
 from llama_index.query_engine import PandanQueryEngine
 from llama_index.query_engine import RetrieverQueryEngine
 from note_engine import note_engine
+#from pdf import get_index, get_pdf_index_from_dict, get_pdf_index_from_set, get_pdf_index_from_list, get_pdf_index_from_string, get_pdf_index_from_tuple, get_pdf_index_from_frozenset, get_pdf_index_from_memoryview, get_pdf_index_from_bytearray, get_pdf_index_from_array, get_pdf_index_from_dataframe, get_pdf_index_from_series
+from pdf import canada_engine
 from prompts import new_prompt, coffee_context, instruction_str, context
 from llama_index.tools import QueryEngineTool, ToolMetadata
 from llama_index.llms.gemini import Gemini
@@ -30,7 +32,14 @@ tools = [
             name="population_data",
             description="this tool can answer questions about world population statistics , demographics and details about a country.",
         ),
-    )
+    ),
+    QueryEngineTool(
+        query_engine = canada_engine,
+        metadata=ToolMetadata(
+            name="canada_data",
+            description="this tool can answer questions about Canada, including its history, geography, and culture.",
+        ),
+    ),        
 ]
 
 print(population_df.head())
